@@ -1,53 +1,43 @@
-import numpy.random as ran
+from event import EVENT
 
-ARRIVE = 1
-DEPART = 0
+tiempo_entre_llegada = 2
+tiempo_estacionado = 1
+eventos_totales = 1000
 
-time_between_arrives = 2
-time_serving = 2
-total_clients = 1000
-clients_in_queue = 0
+# inicialización
+reloj = 0
+Event.init_events(tiempo_entre_llegada, tiempo_estacionado)
+en_cola = 0
+estacionamientos_ocupados = False
 
-#Initialize
-clock = 0
-events = [(ARRIVE,ran.exponential(time_between_arrives))]
-clients_in_queue = 0
-cashier_busy = False
+# reporte de variables
+autos = [en_cola]
+tiempo = [reloj]
+estacionamiento = [estacionamientos_ocupados]
 
-#report variables
-clients = [clients_in_queue]
-time = [clock]
-cashier = [cashier_busy]
-for i in range(total_clients):
-    clock = events[0][1]
-    if events[0][0] == ARRIVE:
-        events.pop(0)
-        events.append((ARRIVE,clock + ran.exponential(time_between_arrives)))
-        clients_in_queue += 1
-        if cashier_busy == False:
-            clients_in_queue -= 1
-            cashier_busy = True
-            events.append((DEPART,clock + ran.exponential(time_serving)))
-        events.sort(key=lambda tup: tup[1])
-    elif events[0][0] == DEPART:
-        events.pop(0)
-        if clients_in_queue > 0:
-            cashier_busy = True
-            clients_in_queue -=1
-            events.append((DEPART,clock + ran.exponential(time_serving)))
-            events.sort(key=lambda tup: tup[1])
+for i in range(eventos_totales):
+    evento_actual = Event.get_next_event()
+    reloj = evento_actual.time
+    if current_event.type == Event.ARRIVE:
+        Event.new_arrive(clock)
+        en_cola += 1
+        if estacionamientos_ocupados == False:
+            en_cola -= 1
+            estacionamientos_ocupados = True
+            Event.new_depart(tiempo)
+    elif current_event == Event.DEPART:
+        if en_cola > 0:
+            estacionamientos_ocupados = True
+            en_cola -= 1
+            Event.new_depart(clock)
         else:
-            cashier_busy = False
-    time.append(clock)
-    clients.append(clients_in_queue)
-    cashier.append(cashier_busy)
+            estacionamientos_ocupados = False
 
-#report
-report = open("report.csv","w")
-for time, cas, cli in zip(time,cashier,clients):
-    report.write(str(time)+","+str(cas)+","+str(cli)+"\n")
+    tiempo.append(tiempo)
+    autos.append(en_cola)
+    estacionamiento.append(estacionamientos_ocupados)
+
+report = open("report.csv", "w")
+for time, cas, cli in zip(tiempo, cashier,clients):
+    report.write(str(time) + " ," + str(cas) + " ," + str(cli) + "\n")
 report.close()
-
-
-
-
