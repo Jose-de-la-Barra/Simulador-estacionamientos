@@ -1,4 +1,4 @@
-from event import EVENT
+from event import Evento
 
 tiempo_entre_llegada = 2
 tiempo_estacionado = 1
@@ -6,7 +6,7 @@ eventos_totales = 1000
 
 # inicialización
 reloj = 0
-Event.init_events(tiempo_entre_llegada, tiempo_estacionado)
+Evento.init_events(tiempo_entre_llegada, tiempo_estacionado)
 en_cola = 0
 estacionamientos_ocupados = False
 
@@ -16,20 +16,20 @@ tiempo = [reloj]
 estacionamiento = [estacionamientos_ocupados]
 
 for i in range(eventos_totales):
-    evento_actual = Event.get_next_event()
+    evento_actual = Evento.get_next_event()
     reloj = evento_actual.time
-    if current_event.type == Event.ARRIVE:
-        Event.new_arrive(clock)
+    if evento_actual.type == Evento.llegada:
+        Evento.new_arrive(reloj)
         en_cola += 1
         if estacionamientos_ocupados == False:
             en_cola -= 1
             estacionamientos_ocupados = True
-            Event.new_depart(tiempo)
-    elif current_event == Event.DEPART:
+            Evento.new_depart(tiempo)
+    elif current_event == Evento.DEPART:
         if en_cola > 0:
             estacionamientos_ocupados = True
             en_cola -= 1
-            Event.new_depart(clock)
+            Evento.new_depart(clock)
         else:
             estacionamientos_ocupados = False
 
@@ -38,6 +38,6 @@ for i in range(eventos_totales):
     estacionamiento.append(estacionamientos_ocupados)
 
 report = open("report.csv", "w")
-for time, cas, cli in zip(tiempo, cashier,clients):
+for time, cas, cli in zip(tiempo, cashier, clients):
     report.write(str(time) + " ," + str(cas) + " ," + str(cli) + "\n")
 report.close()
