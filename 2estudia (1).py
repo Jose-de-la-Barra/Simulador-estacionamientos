@@ -1,43 +1,43 @@
-from event import Evento
 
-tiempo_entre_llegada = 2
-tiempo_estacionado = 1
-eventos_totales = 1000
+from event import Event
 
-# inicialización
-reloj = 0
-Evento.init_events(tiempo_entre_llegada, tiempo_estacionado)
-en_cola = 0
-estacionamientos_ocupados = False
+time_between_arrives = 2
+time_serving = 1
+total_events = 1000
 
-# reporte de variables
-autos = [en_cola]
-tiempo = [reloj]
-estacionamiento = [estacionamientos_ocupados]
+#Initialize
+clock = 0
+Event.init_events(time_between_arrives,time_serving)
+clients_in_queue = 0
+cashier_busy = False
 
-for i in range(eventos_totales):
-    evento_actual = Evento.get_next_event()
-    reloj = evento_actual.time
-    if evento_actual.type == Evento.llegada:
-        Evento.new_arrive(reloj)
-        en_cola += 1
-        if estacionamientos_ocupados == False:
-            en_cola -= 1
-            estacionamientos_ocupados = True
-            Evento.new_depart(tiempo)
-    elif current_event == Evento.DEPART:
-        if en_cola > 0:
-            estacionamientos_ocupados = True
-            en_cola -= 1
-            Evento.new_depart(clock)
+#report variables
+clients = [clients_in_queue]
+time = [clock]
+cashier = [cashier_busy]
+for i in range(total_events):
+    current_event = Event.get_next_event()
+    clock = current_event.time
+    if current_event.type == Event.ARRIVE:
+        Event.new_arrive(clock)
+        clients_in_queue += 1
+        if cashier_busy == False:
+            clients_in_queue -= 1
+            cashier_busy = True
+            Event.new_depart(clock)
+    elif current_event == Event.DEPART:
+        if clients_in_queue > 0:
+            cashier_busy = True
+            clients_in_queue -=1
+            Event.new_depart(clock)
         else:
-            estacionamientos_ocupados = False
+            cashier_busy = False
+    time.append(clock)
+    clients.append(clients_in_queue)
+    cashier.append(cashier_busy)
 
-    tiempo.append(tiempo)
-    autos.append(en_cola)
-    estacionamiento.append(estacionamientos_ocupados)
-
-report = open("report.csv", "w")
-for time, cas, cli in zip(tiempo, cashier, clients):
-    report.write(str(time) + " ," + str(cas) + " ," + str(cli) + "\n")
+#report
+report = open("report.csv","w")
+for time, cas, cli in zip(time,cashier,clients):
+    report.write(str(time)+","+str(cas)+","+str(cli)+"\n")
 report.close()
