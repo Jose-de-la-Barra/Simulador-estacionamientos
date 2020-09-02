@@ -2,11 +2,11 @@ import numpy.random as ran
 
 
 class Event:
-    ARRIVE = 1
-    DEPART = 0
-    events = []
-    TIME_BETWEEN_ARRIVES = 0
-    TIME_SERVING = 0
+    llegada = 1
+    salida = 0
+    eventos = []
+    tiempo_entre_llegadas = 0
+    tiempo_estacionado = 0
 
     def __init__(self, time, type):
         self.time = time
@@ -28,18 +28,18 @@ class Event:
     def type(self, new_type):
         self.__type = new_type
 
-    def init_events(time_between_arrives, time_serving):
-        Event.events.append(Event(ran.exponential(time_between_arrives), Event.ARRIVE))
-        Event.TIME_BETWEEN_ARRIVES = time_between_arrives
-        Event.TIME_SERVING = time_serving
+    def init_events(tiempo_entre_llegadas, time_serving):
+        Event.eventos.append(Event(ran.exponential(tiempo_entre_llegadas), Event.llegada))
+        Event.tiempo_entre_llegadas = tiempo_entre_llegadas
+        Event.tiempo_estacionado = time_serving
 
     def new_arrive(time):
-        Event.events.append(Event(time + ran.exponential(Event.TIME_BETWEEN_ARRIVES), Event.ARRIVE))
-        Event.events.sort(key=lambda tup: tup.time)
+        Event.eventos.append(Event(time + ran.exponential(Event.tiempo_entre_llegadas), Event.llegada))
+        Event.eventos.sort(key=lambda tup: tup.time)
 
     def new_depart(time):
-        Event.events.append(Event(time + ran.exponential(Event.TIME_SERVING), Event.DEPART))
-        Event.events.sort(key=lambda tup: tup.time)
+        Event.eventos.append(Event(time + ran.exponential(Event.tiempo_estacionado), Event.salida))
+        Event.eventos.sort(key=lambda tup: tup.time)
 
     def get_next_event():
-        return Event.events.pop(0)
+        return Event.eventos.pop(0)
