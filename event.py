@@ -1,5 +1,6 @@
 import numpy.random as ran
 
+ran.seed(17)
 
 class Estacionamiento:
     llegada = 1
@@ -29,6 +30,7 @@ class Estacionamiento:
         self.__type = new_type
 
     def init_events(tiempo_entre_llegadas, time_serving):
+
         Estacionamiento.eventos.append(Estacionamiento(ran.exponential(tiempo_entre_llegadas), Estacionamiento.llegada))
         Estacionamiento.tiempo_entre_llegadas = tiempo_entre_llegadas
         Estacionamiento.tiempo_estacionado = time_serving
