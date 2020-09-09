@@ -41,7 +41,7 @@ for i in range(total_events):
         ocupado = estacionamiento_ocupado_2
 
     if current_event.type == Estacionamiento.llegada:
-        Estacionamiento.new_arrive(clock)
+        Estacionamiento.new_arrive(clock)  
         clients_in_queue += 1
 
         if ocupado == False:
@@ -77,4 +77,4 @@ report.close()
 # report = open("report_2.csv", "w")
 # for time_2, cas_2, cli_2 in zip(time, estacionamientos_2, clients):
 #    report.write('Estacionemiento 2: ' + str(time_2)+","+str(cas_2)+","+str(cli_2)+"\n")
-# report.close()
+# report.close() hola
