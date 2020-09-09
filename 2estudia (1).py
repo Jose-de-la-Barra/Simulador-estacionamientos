@@ -1,5 +1,4 @@
 from event import Estacionamiento
-import csv
 import random as ran
 
 tiempo_entre_llegadas = 5
@@ -69,15 +68,13 @@ for i in range(total_events):
 
 # report
 report = open("report.csv", "w")
-
 for time, cas, cli in zip(time, estacionamientos, clients):
     report.write('Estacionemiento 1: ' + str(time)+","+str(cas)+","+str(cli)+"\n")
 report.close()
 
 
 # report 2
-
-report_2 = open("report_2.csv", "w")
-for time, cas_2, cli in zip(time, estacionamientos_2, clients):
-    report_2.write('Estacionemiento 2: ' + str(time)+","+str(cas_2)+","+str(cli)+"\n")
- report_2.close()
+# report = open("report_2.csv", "w")
+# for time_2, cas_2, cli_2 in zip(time, estacionamientos_2, clients):
+#    report.write('Estacionemiento 2: ' + str(time_2)+","+str(cas_2)+","+str(cli_2)+"\n")
+# report.close()
