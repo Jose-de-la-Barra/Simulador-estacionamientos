@@ -77,4 +77,4 @@ report.close()
 # report = open("report_2.csv", "w")
 # for time_2, cas_2, cli_2 in zip(time, estacionamientos_2, clients):
 #    report.write('Estacionemiento 2: ' + str(time_2)+","+str(cas_2)+","+str(cli_2)+"\n")
-# report.close() hola
+# report.close() hola seba
