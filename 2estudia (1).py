@@ -49,7 +49,7 @@ for i in range(total_events):
             ocupado = True
             Estacionamiento.new_depart(clock)
 
-    elif ocupado == Estacionamiento.salida:
+    elif current_event.type == Estacionamiento.salida:
         if clients_in_queue > 0:
             ocupado = True
             clients_in_queue -= 1
