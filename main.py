@@ -1,9 +1,10 @@
 import numpy.random as ran
 from event import Event
 
-time_between_arrives = 20
-tiempo_estacionado = 90
-total_events = 30
+
+time_between_arrives = 30
+tiempo_estacionado = 200
+total_events = 100
 
 # Initialize
 clock = 0
@@ -15,7 +16,7 @@ autos_totales = []
 autos = []
 time = [clock]
 numero_estacionamiento = []
-estacionados = [0, 0, 0]
+estacionados = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 tipo_evento = []
 
 
@@ -24,7 +25,7 @@ for i in range(total_events):
   clock = current_event.time
 
   if current_event.type == Event.ARRIVE:
-    num_est = ran.randint(0, 3)
+    num_est = ran.randint(0, 10)
     estacionados[current_event.num] += 1
     Event.new_arrive(clock, num_est)
     Event.new_depart(clock,current_event.num)
@@ -53,12 +54,12 @@ for i in range(total_events):
   numero_estacionamiento.append(current_event.num)
   autos.append(est)
   tipo_evento.append(current_event.type)
-  total = estacionados[0] + estacionados[1] + estacionados[2]
+  total = estacionados[0] + estacionados[1] + estacionados[2] + estacionados[3] + estacionados[4] + estacionados[5] + estacionados[6] + estacionados[7] + estacionados[8] + estacionados[9]
   autos_totales.append(total)
 
 # report
 report = open("report.csv", "w")
-report.write("Tiempo|Numero Est.|Ocupado|Cantidad Autos|Sin cupo\n")
+report.write("Tiempo|Numero Est.|Cola por estacionamiento|Tipo de evento|Autos en sistema\n")
 for time, num, auto, type, total in zip(time, numero_estacionamiento, autos, tipo_evento, autos_totales):
   if type == 1:
     tipo = "Llegada"
