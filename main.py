@@ -10,12 +10,12 @@ ax = fig.add_subplot(111)
 
 #time_between_arrives = 30
 #tiempo_estacionado = 200
-total_events = 10000
+total_events = 1000
 
 avg_queu = []
 rhos = []
 
-for i in range(30,330,30):
+for i in range(30, 330, 30):
 
   time_between_arrives = 30
   tiempo_estacionado = i
@@ -45,13 +45,12 @@ for i in range(30,330,30):
       num_est = ran.randint(0, 10)
       estacionados[current_event.num] += 1
       Event.new_arrive(clock, num_est)
-      Event.new_depart(clock,current_event.num)
+      Event.new_depart(clock, current_event.num)
 
     elif current_event.type == Event.DEPART:
       num_est = current_event.num
       estacionados[num_est] -= 1
     clock = round(clock, 1)
-
 
     time.append(clock)
     est = estacionados[current_event.num]
@@ -62,7 +61,7 @@ for i in range(30,330,30):
     autos_totales.append(total)
 
   # report
-  report = open("report.csv", "w")
+  report = open("report"+str(tiempo_estacionado/time_between_arrives)+".csv", "w")
   report.write("Tiempo|Numero Est.|Cola por estacionamiento|Tipo de evento|Autos en sistema\n")
   for time, num, auto, type, total in zip(time, numero_estacionamiento, autos, tipo_evento, autos_totales):
     if type == 1:
@@ -78,4 +77,5 @@ for i in range(30,330,30):
   aux_fig.savefig('graph'+str(rhos[-1])+'.png')
 
 ax.plot(rhos,avg_queu)
-fig.savefig('graph.png')
+plt.xlabel("Carga de tráfico")
+plt.savefig('graph.png')
