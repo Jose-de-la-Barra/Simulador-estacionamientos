@@ -10,7 +10,7 @@ ax = fig.add_subplot(111)
 
 #time_between_arrives = 30
 #tiempo_estacionado = 200
-total_events = 1000
+total_events = 10000
 
 avg_queu = []
 rhos = []
@@ -78,4 +78,4 @@ for i in range(30, 330, 30):
 
 ax.plot(rhos,avg_queu)
 plt.xlabel("Carga de tráfico")
-plt.savefig('graph.png')
+fig.savefig('graph.png')
