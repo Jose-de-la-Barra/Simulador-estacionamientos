@@ -46,10 +46,18 @@ class Event:
    Event.events.append(Event(time + ran.exponential(Event.TIME_SERVING),  Event.DEPART, num_est))
    Event.events.sort(key=lambda tup: tup.time)
 
- def estacionarse(time, num_est, tiempo_estacionar):
+ def estacionarse(num_est, tiempo_estacionar):
      Event.events.append(Event(tiempo_estacionar, Event.PARK, num_est))
      Event.events.sort(key=lambda tup: tup.time)
 
 
  def get_next_event():
    return Event.events.pop(0)
+
+ def f():
+     t = -1
+     for evento in Event.events:
+         if evento.type == Event.DEPART:
+             t = evento.time
+             break
+     return t

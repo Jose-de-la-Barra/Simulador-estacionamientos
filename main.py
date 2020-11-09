@@ -5,13 +5,12 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 
-def f(E):
-  t = -1
-  for evento in E:
-    if evento.type == Event.DEPART:
-      t = evento.time
-      break
-  return t
+def estacionar(estacionamientos):
+  for i in range(len(estacionamientos)):
+    if estacionamientos[i] < 1:
+      estacionamientos[i] = 1
+      return True
+  return False
 
 fig = plt.figure(figsize=(10, 8))
 ax = fig.add_subplot(111)
@@ -55,13 +54,19 @@ for i in range(30, 330, 30):
 
     #########
     if current_event.type == Event.ARRIVE:
-      num_est = ran.randint(0, 10)
-      estacionados[current_event.num] += 1
+      if not estacionar(estacionados):
+        if Event.f() < tiempo_espera:
+          Event.estacionarse(clock, t_para_estacionar)
+
+        else:
+          Event.new_depart(clock + tiempo_espera, -1)
+
       Event.new_arrive(clock, num_est)
- #     Event.new_depart(clock, current_event.num)
-      if total > 10:
-        if tiempo_espera <
-          Event.estacionarse(num_est, t_para_estacionar)
+      
+  #    Event.new_depart(clock, current_event.num)
+  #    if total > 10:
+  #      if tiempo_espera <
+  #        Event.estacionarse(num_est, t_para_estacionar)
     #########
 
     # Cuando llega y no hay comenzamos a contar
@@ -82,6 +87,7 @@ for i in range(30, 330, 30):
     tipo_evento.append(current_event.type)
     total = sum(estacionados)  # estacionados[0] + estacionados[1] + estacionados[2] + estacionados[3] + estacionados[4] + estacionados[5] + estacionados[6] + estacionados[7] + estacionados[8] + estacionados[9]
     autos_totales.append(total)
+    print(estacionados)
 
   # report
   report = open("report"+str(tiempo_estacionado/time_between_arrives)+".csv", "w")
