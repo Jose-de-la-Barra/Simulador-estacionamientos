@@ -54,14 +54,18 @@ for i in range(30, 330, 30):
 
     #########
     if current_event.type == Event.ARRIVE:
-      if not estacionar(estacionados):
+      num_est = estacionar(estacionados)
+      Event.new_arrive(clock, num_est)
+      estacionados[num_est] += 1
+
+      if not num_est:
         if Event.f() < tiempo_espera:
-          Event.estacionarse(clock, t_para_estacionar)
+          Event.estacionarse(num_est, t_para_estacionar)
 
         else:
           Event.new_depart(clock + tiempo_espera, -1)
+          estacionados[num_est] -= 1
 
-      Event.new_arrive(clock, num_est)
       
   #    Event.new_depart(clock, current_event.num)
   #    if total > 10:
