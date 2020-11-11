@@ -9,8 +9,8 @@ def estacionar(estacionamientos):
   for i in range(len(estacionamientos)):
     if estacionamientos[i] < 1:
       estacionamientos[i] = 1
-      return True
-  return False
+      return i
+  return -1
 
 fig = plt.figure(figsize=(10, 8))
 ax = fig.add_subplot(111)
@@ -56,15 +56,18 @@ for i in range(30, 330, 30):
     if current_event.type == Event.ARRIVE:
       num_est = estacionar(estacionados)
       Event.new_arrive(clock, num_est)
-      estacionados[num_est] += 1
 
-      if not num_est:
+
+      if num_est==-1:
         if Event.f() < tiempo_espera:
-          Event.estacionarse(num_est, t_para_estacionar)
+          Event.estacionarse(num_est, Event.f()+0.000000000001)
 
         else:
           Event.new_depart(clock + tiempo_espera, -1)
-          estacionados[num_est] -= 1
+      else:
+        estacionados[num_est] += 1
+        Event.new_depart(clock + tiempo_estacionado, -1)
+
 
       
   #    Event.new_depart(clock, current_event.num)
@@ -77,6 +80,10 @@ for i in range(30, 330, 30):
     # estacionarse
     elif current_event.type == Event.PARK:
       num_est = current_event.num
+      estacionados[num_est] += 1
+      Event.new_depart(clock + tiempo_estacionado, -1)
+
+
 
 
     elif current_event.type == Event.DEPART:

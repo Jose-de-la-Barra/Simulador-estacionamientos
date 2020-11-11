@@ -31,6 +31,7 @@ class Event:
  def type(self, new_type):
    self.__type = new_type
 
+
  def init_events(time_between_arrives, tiempo_estacionado, time_parking):
    Event.events = []
    Event.events.append(Event(ran.exponential(time_between_arrives), Event.ARRIVE, 1))
