@@ -43,7 +43,7 @@ class Event:
    Event.events.append(Event(time + ran.exponential(Event.TIME_BETWEEN_ARRIVES),Event.ARRIVE, num_est))
    Event.events.sort(key=lambda tup: tup.time)
 
- def new_depart(time,num_est):
+ def new_depart(time, num_est):
    Event.events.append(Event(time + ran.exponential(Event.TIME_SERVING),  Event.DEPART, num_est))
    Event.events.sort(key=lambda tup: tup.time)
 
@@ -62,3 +62,6 @@ class Event:
              t = evento.time
              break
      return t
+
+ # def ocupado(time, num_est):
+

@@ -1,8 +1,8 @@
 import numpy.random as ran
-from event import Event
-import matplotlib as mpl
-mpl.use('Agg')
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+from event import Event
+mpl.use('Agg')
 
 
 def estacionar(estacionamientos):
@@ -47,7 +47,6 @@ for i in range(30, 330, 30):
   estacionados = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   tipo_evento = []
 
-
   for i in range(total_events):
     current_event = Event.get_next_event()
     clock = current_event.time
@@ -68,22 +67,18 @@ for i in range(30, 330, 30):
         estacionados[num_est] += 1
         Event.new_depart(clock + tiempo_estacionado, -1)
 
-
-      
   #    Event.new_depart(clock, current_event.num)
   #    if total > 10:
   #      if tiempo_espera <
   #        Event.estacionarse(num_est, t_para_estacionar)
     #########
-
     # Cuando llega y no hay comenzamos a contar
     # estacionarse
+
     elif current_event.type == Event.PARK:
       num_est = current_event.num
       estacionados[num_est] += 1
       Event.new_depart(clock + tiempo_estacionado, -1)
-
-
 
 
     elif current_event.type == Event.DEPART:
