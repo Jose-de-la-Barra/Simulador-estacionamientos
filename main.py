@@ -58,32 +58,25 @@ for i in range(30, 330, 30):
 
 
       if num_est==-1:
-        if Event.f() < tiempo_espera:
-          Event.estacionarse(num_est, Event.f()+0.000000000001)
+        v = Event.f()
+        if v[0] < tiempo_espera:
+          Event.estacionarse(v[1], v[0] +0.000000000001)
 
         else:
           Event.new_depart(clock + tiempo_espera, -1)
       else:
-        estacionados[num_est] += 1
-        Event.new_depart(clock + tiempo_estacionado, -1)
-
-  #    Event.new_depart(clock, current_event.num)
-  #    if total > 10:
-  #      if tiempo_espera <
-  #        Event.estacionarse(num_est, t_para_estacionar)
-    #########
-    # Cuando llega y no hay comenzamos a contar
-    # estacionarse
+        Event.new_depart(clock + tiempo_estacionado, num_est)
 
     elif current_event.type == Event.PARK:
       num_est = current_event.num
       estacionados[num_est] += 1
-      Event.new_depart(clock + tiempo_estacionado, -1)
-
+      Event.new_depart(clock + tiempo_estacionado, num_est)
 
     elif current_event.type == Event.DEPART:
       num_est = current_event.num
-      estacionados[num_est] -= 1
+
+      if num_est != -1:
+        estacionados[num_est] -= 1
     clock = round(clock, 1)
 
     time.append(clock)

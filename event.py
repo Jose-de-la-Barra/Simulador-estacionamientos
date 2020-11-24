@@ -56,12 +56,14 @@ class Event:
    return Event.events.pop(0)
 
  def f():
-     t = -1
+     t = 99999999
+     n = -1
      for evento in Event.events:
          if evento.type == Event.DEPART:
              t = evento.time
+             n = evento.num
              break
-     return t
+     return (t,n)
 
  # def ocupado(time, num_est):
 
